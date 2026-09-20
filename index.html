@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Great Filter | Where Is Everybody?</title>
+  <meta name="description" content="An interactive exploration of Robin Hanson's Great Filter hypothesis and the Fermi Paradox. Is humanity's greatest barrier behind us or ahead of us?">
+  
+  <!-- OpenGraph / Social Metadata -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thegreatfilter.me/">
+  <meta property="og:title" content="The Great Filter — Where Is Everybody?">
+  <meta property="og:description" content="Explore the Fermi Paradox, the 9 evolutionary barriers, and an interactive Drake Equation simulator.">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="The Great Filter — thegreatfilter.me">
+  <meta property="twitter:description" content="An interactive inquiry into the silence of the cosmos and the fate of civilization.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Light Effects -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Cosmic Particle Canvas -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand-link" aria-label="The Great Filter Home">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" stroke="#07080e" stroke-width="2" fill="none"/>
+            <line x1="12" y1="3" x2="12" y2="21" stroke="#07080e" stroke-width="2"/>
+          </svg>
+        </div>
+        <span>THE GREAT FILTER</span>
+        <span class="brand-tag">thegreatfilter.me</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#paradox" class="nav-link">The Paradox</a></li>
+          <li><a href="#steps" class="nav-link">The 9 Steps</a></li>
+          <li><a href="#calculator" class="nav-link">Probability Engine</a></li>
+          <li><a href="#dichotomy" class="nav-link">Behind vs Ahead</a></li>
+          <li><a href="#hypotheses" class="nav-link">Hypotheses</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+
+      <a href="#calculator" class="nav-cta">
+        <span>Simulate Filter</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+
+      <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span>THE FERMI PARADOX & HUMAN SURVIVAL</span>
+        </div>
+
+        <h1 class="hero-title">Where is everybody?</h1>
+
+        <p class="hero-subtitle">
+          The universe is 13.8 billion years old and contains hundreds of billions of habitable worlds in our galaxy alone.
+          Yet the cosmos is utterly silent. Somewhere along the path from dead matter to galactic civilization lies an insurmountable barrier:
+          <strong>The Great Filter</strong>.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#steps" class="btn btn-primary">
+            <span>Explore The 9 Evolutionary Steps</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+          <a href="#calculator" class="btn btn-secondary">
+            <span>Calculate Civilizational Probability</span>
+          </a>
+        </div>
+
+        <!-- Telemetry Data Grid -->
+        <div class="telemetry-grid">
+          <div class="telemetry-card">
+            <div class="telemetry-label">Cosmic Age</div>
+            <div class="telemetry-value">13.8 <span class="telemetry-unit">Billion Yrs</span></div>
+            <div class="telemetry-sub">Ample time for galactic colonization</div>
+          </div>
+          <div class="telemetry-card">
+            <div class="telemetry-label">Milky Way Habitable Worlds</div>
+            <div class="telemetry-value">40 <span class="telemetry-unit">Billion</span></div>
+            <div class="telemetry-sub">Earth-sized rocky exoplanets</div>
+          </div>
+          <div class="telemetry-card">
+            <div class="telemetry-label">Detected Civilizations</div>
+            <div class="telemetry-value">1 <span class="telemetry-unit">(Humanity)</span></div>
+            <div class="telemetry-sub">Zero verifiable signals recorded</div>
+          </div>
+          <div class="telemetry-card">
+            <div class="telemetry-label">Milky Way Crossing Time</div>
+            <div class="telemetry-value">~50 <span class="telemetry-unit">Million Yrs</span></div>
+            <div class="telemetry-sub">At 1% speed of light by sub-light probes</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Paradox Section -->
+    <section class="section" id="paradox">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">01 / The Core Enigma</span>
+          <h2 class="section-title">The Grand Contradiction</h2>
+          <p class="section-desc">
+            If intelligent life is a natural outcome of cosmic evolution, the sky should be crowded with artificial transmissions, megastructures, and exploration probes. The fact that it isn't is the most urgent question in science.
+          </p>
+        </div>
+
+        <div class="paradox-grid">
+          <div class="paradox-card">
+            <div class="paradox-quote">"They are either here, or they do not exist, or their numbers are small, or they are hiding."</div>
+            <div class="paradox-author">— Enrico Fermi, Los Alamos (1950)</div>
+            <p class="paradox-text">
+              While walking to lunch at Los Alamos, Nobel laureate Enrico Fermi asked his colleagues a deceptively simple question: <em>"Where are they?"</em>
+              Given that stars exist billions of years older than our Sun, an early civilization should have easily spread across the entire galaxy by now.
+            </p>
+          </div>
+
+          <div class="paradox-card">
+            <div class="paradox-quote">"No alien civilizations have substantially colonized our solar system or nearby systems. Thus, among the billion trillion stars in our past universe, there is a Great Filter."</div>
+            <div class="paradox-author">— Robin Hanson, George Mason University (1998)</div>
+            <p class="paradox-text">
+              Economist and futurist Robin Hanson formalized this dilemma into the concept of <strong>The Great Filter</strong>. There must be at least one evolutionary barrier so improbable or deadly that it stops virtually all species before they can colonize the stars.
+            </p>
+          </div>
+
+          <div class="paradox-card">
+            <div class="paradox-quote">"The silence of the night sky is not golden. In it, one may read the possible doom of our species."</div>
+            <div class="paradox-author">— Nick Bostrom, Oxford Future of Humanity Institute</div>
+            <p class="paradox-text">
+              If life routinely forms and evolves intelligence elsewhere, it means the Filter did not stop them early. Therefore, the Filter must lie in humanity's future—an inevitable existential catastrophe that destroys every technological society.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The 9 Evolutionary Steps Section -->
+    <section class="section timeline-section" id="steps">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">02 / Evolutionary Ladder</span>
+          <h2 class="section-title">The 9 Critical Milestones</h2>
+          <p class="section-desc">
+            Robin Hanson formulated 9 indispensable steps from dead matter to an interstellar civilization. Drag the slider below to position where you think the Great Filter lies.
+          </p>
+        </div>
+
+        <!-- Filter Position Slider Controller -->
+        <div class="timeline-filter-banner">
+          <div class="filter-slider-control">
+            <label for="filter-slider">Filter Position:</label>
+            <input type="range" id="filter-slider" class="filter-range-input" min="1" max="9" value="8" step="1">
+          </div>
+          <div class="filter-status-indicator status-ahead" id="filter-status-indicator">
+            <span id="filter-status-text">⚠️ Filter is <strong>AHEAD OF US</strong> at Step 8 — Existential danger awaits!</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Steps List -->
+        <div class="timeline-steps" id="timeline-steps-container">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Probability Engine / Calculator -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">03 / Interactive Model</span>
+          <h2 class="section-title">The Great Filter Probability Engine</h2>
+          <p class="section-desc">
+            Explore the mathematics behind the Drake Equation combined with the Great Filter survival probability. Adjust parameters to observe how civilizational abundance shifts.
+          </p>
+        </div>
+
+        <div class="calculator-container">
+          <!-- Sliders -->
+          <div class="calc-sliders">
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">R* : Star Formation Rate (Milky Way)</span>
+                <span class="calc-value" id="val-rstar">7.0 / yr</span>
+              </div>
+              <input type="range" id="calc-rstar" class="calc-range" min="1" max="20" step="0.5" value="7">
+            </div>
+
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">fp : Fraction of Stars with Planets</span>
+                <span class="calc-value" id="val-fp">80%</span>
+              </div>
+              <input type="range" id="calc-fp" class="calc-range" min="0.1" max="1" step="0.05" value="0.8">
+            </div>
+
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">ne : Habitable Rocky Planets per Star System</span>
+                <span class="calc-value" id="val-ne">0.50</span>
+              </div>
+              <input type="range" id="calc-ne" class="calc-range" min="0.05" max="3" step="0.05" value="0.5">
+            </div>
+
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">fl : Fraction Developing Living Organisms (Abiogenesis)</span>
+                <span class="calc-value" id="val-fl">10.0%</span>
+              </div>
+              <input type="range" id="calc-fl" class="calc-range" min="0.0001" max="1" step="0.001" value="0.1">
+            </div>
+
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">fi : Fraction Developing Tool-Using Intelligence</span>
+                <span class="calc-value" id="val-fi">5.0%</span>
+              </div>
+              <input type="range" id="calc-fi" class="calc-range" min="0.0001" max="1" step="0.001" value="0.05">
+            </div>
+
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">fc : Fraction Developing Communicating Technology</span>
+                <span class="calc-value" id="val-fc">5.0%</span>
+              </div>
+              <input type="range" id="calc-fc" class="calc-range" min="0.001" max="1" step="0.005" value="0.05">
+            </div>
+
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">S_filter : Filter Survival Rate (Civilization Bottleneck)</span>
+                <span class="calc-value" id="val-sfilter">0.0100%</span>
+              </div>
+              <input type="range" id="calc-sfilter" class="calc-range" min="0.00001" max="1" step="0.0005" value="0.0001">
+            </div>
+
+            <div class="calc-group">
+              <div class="calc-label-row">
+                <span class="calc-label">L : Technological Civilization Lifespan</span>
+                <span class="calc-value" id="val-l">2,000 yrs</span>
+              </div>
+              <input type="range" id="calc-l" class="calc-range" min="100" max="500000" step="100" value="2000">
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="calc-presets">
+              <span style="font-size:0.85rem; color:var(--text-dim); display:flex; align-items:center;">Model Presets:</span>
+              <button class="calc-preset-btn active" data-preset="hanson">Hansonian Chokepoint</button>
+              <button class="calc-preset-btn" data-preset="optimist">Cosmic Optimist (Sagan)</button>
+              <button class="calc-preset-btn" data-preset="pessimist">Rare Earth (Alone)</button>
+            </div>
+          </div>
+
+          <!-- Output Panel -->
+          <div class="calc-output-panel">
+            <div class="output-title">Active Communicating Civilizations in Milky Way (N)</div>
+            <div class="output-big-number" id="calc-result-number">0.01</div>
+            <div class="output-status" id="calc-result-status">COSMIC SOLITUDE (Filter Behind Us)</div>
+            <div class="output-explanation" id="calc-result-desc">
+              Your parameters indicate the Great Filter is likely behind us. Life or intelligence is so astronomically improbable that Earth represents a unique beacon in the cosmos.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Great Dichotomy Section -->
+    <section class="section" id="dichotomy">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">04 / The Two Realities</span>
+          <h2 class="section-title">Behind Us or Ahead of Us?</h2>
+          <p class="section-desc">
+            The fundamental question of our existence hinges on which side of the filter humanity currently stands.
+          </p>
+        </div>
+
+        <div class="dichotomy-grid">
+          <!-- Behind Us -->
+          <div class="dichotomy-card card-behind">
+            <div class="dichotomy-header">
+              <div class="dichotomy-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <polyline points="9 12 11 14 15 10"/>
+                </svg>
+              </div>
+              <h3 class="dichotomy-title">The Filter is Behind Us</h3>
+            </div>
+            <p style="color:var(--text-main); font-weight:600; margin-bottom:1rem;">
+              "We are an astronomical miracle. The universe belongs to us."
+            </p>
+            <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6;">
+              If the filter is in our evolutionary past, the emergence of living systems or abstract intelligence is so phenomenally unlikely that Earth was the only world in billions of years to achieve it.
+            </p>
+            <ul class="dichotomy-list">
+              <li><strong>Abiogenesis was a freak chemistry accident:</strong> RNA world and self-replication might require precise cosmic alignments that occur only once per galaxy.</li>
+              <li><strong>The Eukaryote anomaly:</strong> Endosymbiosis between archaea and mitochondria took 2 billion years and occurred exactly once.</li>
+              <li><strong>Planetary stability:</strong> Plate tectonics, a giant stabilizing moon, and a protective magnetic dynamo may be exceedingly rare.</li>
+              <li><strong>Future Outlook:</strong> Boundless. The stars are open, unclaimed territory awaiting human expansion.</li>
+            </ul>
+          </div>
+
+          <!-- Ahead of Us -->
+          <div class="dichotomy-card card-ahead">
+            <div class="dichotomy-header">
+              <div class="dichotomy-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </div>
+              <h3 class="dichotomy-title">The Filter is Ahead of Us</h3>
+            </div>
+            <p style="color:var(--text-main); font-weight:600; margin-bottom:1rem;">
+              "The silence of the stars is a warning graveyard."
+            </p>
+            <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.6;">
+              If life and intelligence routinely arise across the cosmos, then every civilization eventually develops technologies capable of total self-annihilation—and fails to survive them.
+            </p>
+            <ul class="dichotomy-list">
+              <li><strong>Artificial General Intelligence (AGI):</strong> Misaligned autonomous systems outcompeting biological intelligence and optimizing for non-human objectives.</li>
+              <li><strong>Synthetic Biology & Bioweapons:</strong> Democratization of engineering pathogens with 100% lethality and airborne transmission.</li>
+              <li><strong>Nuclear & Planetary War:</strong> Game-theoretic breakdown in multipolar technological rivalries.</li>
+              <li><strong>Future Outlook:</strong> We are approaching our ultimate survival exam. Navigating the 21st century requires existential maturity.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Alternative Hypotheses -->
+    <section class="section" id="hypotheses">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">05 / Competing Paradigms</span>
+          <h2 class="section-title">Other Explanations for the Silence</h2>
+          <p class="section-desc">
+            Beyond the classic Great Filter, several prominent scientific and game-theoretic models attempt to explain why humanity has received no signals.
+          </p>
+        </div>
+
+        <div class="hypotheses-grid">
+          <div class="hypothesis-card">
+            <h3 class="hypothesis-name">The Dark Forest</h3>
+            <div class="hypothesis-origin">Liu Cixin / Cosmic Sociology</div>
+            <p class="hypothesis-desc">
+              All civilizations prioritize survival. Because intentions cannot be verified across cosmic distances and technological explosions can happen rapidly, the optimal game-theoretic strategy is absolute silence and pre-emptive annihilation of any civilization that reveals its location.
+            </p>
+          </div>
+
+          <div class="hypothesis-card">
+            <h3 class="hypothesis-name">No News Is Good News</h3>
+            <div class="hypothesis-origin">Nick Bostrom / Oxford University</div>
+            <p class="hypothesis-desc">
+              Discovering even fossilized bacteria on Mars or Europa would be the worst scientific news in human history. It would prove abiogenesis is easy, eliminating early evolutionary barriers and drastically increasing the probability that the Great Filter lies ahead in our immediate future.
+            </p>
+          </div>
+
+          <div class="hypothesis-card">
+            <h3 class="hypothesis-name">The Zoo Hypothesis</h3>
+            <div class="hypothesis-origin">John A. Ball / MIT Haystack</div>
+            <p class="hypothesis-desc">
+              Extraterrestrial intelligences exist in abundance, have observed our solar system, but deliberately refrain from contact—treating Earth as a protected planetary wildlife sanctuary or scientific reserve until we reach technological or ethical maturity.
+            </p>
+          </div>
+
+          <div class="hypothesis-card">
+            <h3 class="hypothesis-name">The Simulation Boundary</h3>
+            <div class="hypothesis-origin">Digital Physics / Bostrom</div>
+            <p class="hypothesis-desc">
+              If our reality is a computational simulation running inside a higher substrate, rendering a sprawling multi-civilization galactic ecosystem would consume excessive computational resources. A solitary civilization with an empty sky is computationally economical.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About & Transmission Dispatch -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="about-box">
+          <div class="about-text">
+            <span class="section-tag">About this project</span>
+            <h3>thegreatfilter.me</h3>
+            <p>
+              This website is an interactive thought experiment dedicated to exploring humanity's most profound existential inquiry: <strong>our place and survival in the cosmic continuum</strong>.
+            </p>
+            <p>
+              Created by <strong style="color:var(--text-main);">Salih Mert Cetin</strong> (Donatus Barlas). Hosted on GitHub Pages with zero external tracking or bloated frameworks. Built with vanilla HTML5, CSS3, and JavaScript.
+            </p>
+            <div style="display:flex; gap:1rem; margin-top:1.5rem; flex-wrap:wrap;">
+              <a href="https://github.com/DonatusBarlas/DonatusBarlas.github.io" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:0.9rem; padding:0.6rem 1.2rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>View on GitHub</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Dispatch form -->
+          <div class="dispatch-card">
+            <h4>Cosmic Dispatch</h4>
+            <p>Subscribe to receive updates on essays, astrophysical discoveries, and existential risk research.</p>
+            <form class="dispatch-form" id="dispatch-form">
+              <input type="email" class="dispatch-input" placeholder="Your interstellar coordinate (email)..." required>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Establish Link</button>
+              <div class="dispatch-msg" id="dispatch-msg"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="brand-link">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" stroke="#07080e" stroke-width="2" fill="none"/>
+                <line x1="12" y1="3" x2="12" y2="21" stroke="#07080e" stroke-width="2"/>
+              </svg>
+            </div>
+            <span>THE GREAT FILTER</span>
+          </a>
+          <p>
+            Exploring the silence of our universe, existential risk, and the future of human civilization.
+          </p>
+        </div>
+
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul>
+              <li><a href="#paradox">The Paradox</a></li>
+              <li><a href="#steps">The 9 Steps</a></li>
+              <li><a href="#calculator">Probability Engine</a></li>
+              <li><a href="#dichotomy">Behind vs Ahead</a></li>
+              <li><a href="#hypotheses">Hypotheses</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h5>Resources</h5>
+            <ul>
+              <li><a href="https://mason.gmu.edu/~rhanson/greatfilter.html" target="_blank" rel="noopener noreferrer">Hanson's Original Paper (1998)</a></li>
+              <li><a href="https://nickbostrom.com/extraterrestrial.pdf" target="_blank" rel="noopener noreferrer">Bostrom: Where Are They? (PDF)</a></li>
+              <li><a href="https://github.com/DonatusBarlas/DonatusBarlas.github.io" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; thegreatfilter.me &bull; Curated by Salih Mert Cetin (Donatus Barlas)</span>
+        <span>Hosted via GitHub Pages &bull; Custom Domain: <a href="https://thegreatfilter.me">thegreatfilter.me</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
